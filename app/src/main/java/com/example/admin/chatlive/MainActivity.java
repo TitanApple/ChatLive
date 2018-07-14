@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.firebase.ui.auth.AuthUI;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.menu_sign_out){
+        if (item.getItemId() == R.id.menu_sign_out) {
             AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -53,11 +54,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == SIGN_IN_REQUEST_CODE){
-            if(resultCode == RESULT_OK){
+        if (requestCode == SIGN_IN_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
                 Snackbar.make(activity_main, "Login erfolgreich! Herzlich Willkommen!", Snackbar.LENGTH_SHORT).show();
                 displayChatMessage();
-            } else{
+            } else {
                 Snackbar.make(activity_main, "Login fehlgeschlagen! Bitte erneut versuchen!", Snackbar.LENGTH_SHORT).show();
                 finish();
             }
@@ -75,26 +76,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText input = (EditText) findViewById(R.id.input);
-                FirebaseDatabase.getInstance().getReference().push().setValue(new ChatMessage(input.getText().toString(),
-                        FirebaseAuth.getInstance().getCurrentUser().getEmail()));
-                input.setText("");
+
+                //kein leerer String gewollt!
+                if (input.getText().toString() != "" && !input.getText().toString().isEmpty()) {
+
+                    FirebaseDatabase.getInstance().getReference().push().setValue(new ChatMessage(input.getText().toString(),
+                            FirebaseAuth.getInstance().getCurrentUser().getEmail()));
+
+                    input.setText("");
+                }
             }
         });
 
-
         //Check if not sign-in then navigate Signin page
-        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().build(), SIGN_IN_REQUEST_CODE);
-        } else{
-            Snackbar.make(activity_main,"Willkommen "+ FirebaseAuth.getInstance().getCurrentUser().getEmail(), Snackbar.LENGTH_SHORT).show();
+        } else {
+            Snackbar.make(activity_main, "Willkommen " + FirebaseAuth.getInstance().getCurrentUser().getEmail(), Snackbar.LENGTH_SHORT).show();
             // Load content
             displayChatMessage();
         }
-
-
     }
 
-    private void displayChatMessage(){
+    private void displayChatMessage() {
         ListView listOfMessage = (ListView) findViewById(R.id.list_of_message);
         adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class, R.layout.list_item, FirebaseDatabase.getInstance().getReference()) {
             @Override
@@ -107,8 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
                 messageText.setText(model.getMessageText());
                 messageUser.setText(model.getMessageUser());
-                messageTime.setText(DateFormat.format("dd-MM-yyyy(HH:mmm:ss)", model.getMessageTime()));
-
+                messageTime.setText(DateFormat.format("dd.MM.yyyy [HH:mm]", model.getMessageTime()));
 
             }
         };
