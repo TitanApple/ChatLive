@@ -35,7 +35,7 @@
             android:id="@+id/input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Gib was ein du Trottel..."
+            android:hint="Nachricht..."
 
             />
     </android.support.design.widget.TextInputLayout>
