@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "209811931846",
+    "firebase_url": "https://chatlive-d9b0c.firebaseio.com",
+    "project_id": "chatlive-d9b0c",
+    "storage_bucket": "chatlive-d9b0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209811931846:android:dfceb7561aaba4e3",
+        "android_client_info": {
+          "package_name": "com.example.admin.chatlive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209811931846-pmqem5ckpi52tja489sjm8121lja600a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.admin.chatlive",
+            "certificate_hash": "964898d164481d4da9684be57d51e61c03f7d5bc"
+          }
+        },
+        {
+          "client_id": "209811931846-14p3gjh5ra9eplcujnq7901rp5878vdt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjkdJiVT-ap_VM2bj3Eg_gxuLNqmQCdUU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209811931846-14p3gjh5ra9eplcujnq7901rp5878vdt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
